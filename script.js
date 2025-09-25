@@ -2,7 +2,6 @@ const videoElement = document.getElementById('webcam');
 const canvasElement = document.getElementById('overlay');
 const canvasCtx = canvasElement.getContext('2d');
 
-const infoModal = document.getElementById('info-modal');
 const subcategoryButtons = document.getElementById('subcategory-buttons');
 const jewelryOptions = document.getElementById('jewelry-options');
 
@@ -44,8 +43,6 @@ async function fetchDriveImages(folderId) {
     });
 }
 
-// =========================================================
-
 // Utility function to load images
 async function loadImage(src) {
   return new Promise((resolve) => {
@@ -76,7 +73,6 @@ function toggleCategory(category) {
   subcategoryButtons.style.display = 'none';
   currentType = category;
 
-  // Only earrings and necklaces now
   subcategoryButtons.style.display = 'flex';
   startCamera('user');
 }
@@ -182,7 +178,6 @@ function drawJewelry(faceLandmarks, ctx) {
     let rightEarPos = { x: rightEarLandmark.x * canvasElement.width + 6, y: rightEarLandmark.y * canvasElement.height - 16 };
     let neckPos = { x: neckLandmark.x * canvasElement.width - 8, y: neckLandmark.y * canvasElement.height + 10 };
 
-    // Smooth positions
     smoothedFacePoints.leftEar = smoothPoint(smoothedFacePoints.leftEar, leftEarPos);
     smoothedFacePoints.rightEar = smoothPoint(smoothedFacePoints.rightEar, rightEarPos);
     smoothedFacePoints.neck = smoothPoint(smoothedFacePoints.neck, neckPos);
@@ -197,10 +192,4 @@ function drawJewelry(faceLandmarks, ctx) {
       ctx.drawImage(necklaceImg, smoothedFacePoints.neck.x - w / 2, smoothedFacePoints.neck.y, w, h);
     }
   }
-}
-
-// Info modal
-function toggleInfoModal() {
-  if (infoModal.open) infoModal.close();
-  else infoModal.showModal();
 }
